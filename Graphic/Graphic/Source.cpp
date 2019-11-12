@@ -4,23 +4,22 @@
 #include <conio.h>
 using namespace std;
 
-int main()
+
+void CreateScreen(char screen [] [20])
 {
-	char screen[60][20];
 	int width = 60;
 	int height = 20;
-	srand(time(NULL));
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
-			if (y > 0 && y <height-1 && x>0 && x<width-1)
+			if (y > 0 && y < height - 1 && x>0 && x < width - 1)
 			{
 				screen[x][y] = ' ';
 			}
 			else
 			{
-				if (y == 0 || y == 19 ) 
+				if (y == 0 || y == 19)
 				{
 					switch (x)
 					{
@@ -56,29 +55,11 @@ int main()
 			}
 		}
 	}
-
-	
-	int SnakeX = rand() % 58 + 1;
-	int Snakey = rand() % 18 + 1;
-	int Snake[2] = { SnakeX,Snakey};
-	
-	for (int y = 0; y < height; y++)
-	{
-		for (int x = 0; x < width; x++)
-		{
-			if (x == Snake[0] && y == Snake[1])
-			{
-				screen[x][y] = '*';
-			}
-		}
-	}
-
-
-
-
-
-
-
+}
+void draw(char screen[][20])
+{
+	int width = 60;
+	int height = 20;
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
@@ -88,6 +69,31 @@ int main()
 		}
 		cout << endl;
 	}
+}
+
+void update()
+{
+
+}
+int main()
+{
+	char screen[60][20];
+	int width = 60;
+	int height = 20;
+	CreateScreen(screen);
+	
+	while (true)
+	{
+		
+		draw(screen);
+		system("CLS");
+	}
+
+
+
+
+
+	
 	
 	return 0;
 }
