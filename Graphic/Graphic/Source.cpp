@@ -6,9 +6,9 @@
 using namespace std;
 
 
-void CreateScreen(char screen [60] [20],int height,int width)
+void CreateScreen(char screen[60][20], int height, int width)
 {
-	
+
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
@@ -56,15 +56,15 @@ void CreateScreen(char screen [60] [20],int height,int width)
 		}
 	}
 }
-void draw(char screen[60][20],int height,int width)
+void draw(char screen[60][20], int height, int width)
 {
-	
+
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
 		{
 			cout.width(1);
-			printf("%c",screen[x][y]);
+			printf("%c", screen[x][y]);
 		}
 		printf("\n");
 	}
@@ -79,7 +79,7 @@ int main()
 	char screen[60][20];
 	int width = 60;
 	int height = 20;
-	CreateScreen(screen,height,width);
+	CreateScreen(screen, height, width);
 	srand(time(NULL));
 	int x = rand() % 58 + 1;
 	int y = rand() % 28 + 1;
@@ -96,10 +96,10 @@ int main()
 		system("CLS");
 		//Update
 		snake[0] += moving_vector[0];
-		snake[0] %=58+1;
+		snake[0] %= 58 + 1;
 		if (snake[0] < 0) snake[0] = 58 + snake[0];
 		snake[1] += moving_vector[1];
-		snake[1] %=18+1;
+		snake[1] %= 18 + 1;
 
 
 
@@ -122,7 +122,7 @@ int main()
 		{
 			for (int x = 0; x < width; x++)
 			{
-				if (x >0 && x< 59 && y> 0 && y < 19)
+				if (x > 0 && x < 59 && y> 0 && y < 19)
 				{
 					screen[x][y] = ' ';
 				}
@@ -133,7 +133,7 @@ int main()
 		{
 			for (int x = 0; x < width; x++)
 			{
-				if (x == snake[0] && y == snake[1] && x != 0 && x!=59 &&y!=0&&y!=19)
+				if (x == snake[0] && y == snake[1] && x != 0 && x != 59 && y != 0 && y != 19)
 				{
 					screen[x][y] = '*';
 				}
@@ -141,7 +141,7 @@ int main()
 				{
 					screen[x][y] = 'O';
 				}
-				
+
 			}
 		}
 		//=======================
@@ -150,41 +150,41 @@ int main()
 			int  a = _getch();
 			switch (a)
 			{
-				case 119:
-					if (moving_vector[1] != 1)
-					{
-						moving_vector[0] = 0;
-						moving_vector[1] = -1;
+			case 119:
+				if (moving_vector[1] != 1)
+				{
+					moving_vector[0] = 0;
+					moving_vector[1] = -1;
 
-					}
-					break;
-				case 100:
-					if (moving_vector[0] != -1)
-					{
-						moving_vector[0] = 1;
-						moving_vector[1] = 0;
-					}
-					break;
-				case 115:
-					if (moving_vector[1] != -1)
-					{
-						moving_vector[0] = 0;
-						moving_vector[1] = 1;
-					}
-					break;
-				case 97:
-					if (moving_vector[0] != 1)
-					{
-						moving_vector[0] = -1;
-						moving_vector[1] = -0;
-					}
-					break;
+				}
+				break;
+			case 100:
+				if (moving_vector[0] != -1)
+				{
+					moving_vector[0] = 1;
+					moving_vector[1] = 0;
+				}
+				break;
+			case 115:
+				if (moving_vector[1] != -1)
+				{
+					moving_vector[0] = 0;
+					moving_vector[1] = 1;
+				}
+				break;
+			case 97:
+				if (moving_vector[0] != 1)
+				{
+					moving_vector[0] = -1;
+					moving_vector[1] = -0;
+				}
+				break;
 
-				default:
+			default:
 				break;
 			}
 		}
-		draw(screen,height,width);	
+		draw(screen, height, width);
 		Sleep(500);
 	}
 
@@ -192,8 +192,8 @@ int main()
 
 
 
-	
-	
+
+
 	return 0;
 }
 
