@@ -3,9 +3,20 @@
 #include <time.h>
 #include <conio.h>
 #include <Windows.h>
+#include "Vector.h"
 using namespace std;
 
-
+void Game_init(int *snake, int *food, int width, int height)
+{
+	srand(time(NULL)); //Create random seed;
+	while (snake[0] == food[0] && snake[1] == food[1])
+	{
+		snake[0] = rand() % (width-2) +1 ;
+		snake[1] = rand() % (height-2) + 1;
+		food[0] = rand() % (width - 2) + 1;
+		food[1] = rand() % (height - 2) + 1;
+	}
+}
 void CreateScreen(char screen[60][20], int height, int width)
 {
 
@@ -70,6 +81,33 @@ void draw(char screen[60][20], int height, int width)
 	}
 }
 
+int keyPress()
+{
+	if (_kbhit())
+	{
+		int a = _getch();
+		fflush(stdin);
+		switch (a)
+		{
+		case 119:
+			return 1;
+			break;
+		case 100:
+			return 2;
+			break;
+		case 115:
+			return 3;
+			break;
+		case 97:
+			return 4;
+			break;
+
+		default:
+			break;
+		}
+	}
+	return 0;
+}
 void update()
 {
 
@@ -81,20 +119,49 @@ int main()
 	int height = 20;
 	CreateScreen(screen, height, width);
 	srand(time(NULL));
-	int x = rand() % 58 + 1;
-	int y = rand() % 28 + 1;
-	int snake[2] = { x,y };
-	int food[2] = { rand() % 58 + 1 ,rand() % 28 + 1 };
+	int snake[2];
+	int food[2];
+	Game_init(snake, food, width, height);
 	int moving_vector[2] = { 0,0 };
-	while (snake[0] == food[0] && snake[1] == food[1])
-	{
-		food[0] = rand() % 58 + 1;
-		food[1] = rand() % 18 + 1;
-	}
 	while (true)
 	{
 		system("CLS");
 		//Update
+		switch (keyPress())
+		{
+		case 1:
+			if (moving_vector[1] != 1)
+			{
+				moving_vector[0] = 0;
+				moving_vector[1] = -1;
+
+			}
+			break;
+		case 2:
+			if (moving_vector[0] != -1)
+			{
+				moving_vector[0] = 1;
+				moving_vector[1] = 0;
+			}
+			break;
+		case 3:
+			if (moving_vector[1] != -1)
+			{
+				moving_vector[0] = 0;
+				moving_vector[1] = 1;
+			}
+			break;
+		case 4:
+			if (moving_vector[0] != 1)
+			{
+				moving_vector[0] = -1;
+				moving_vector[1] = -0;
+			}
+			break;
+
+		default:
+			break;
+		}
 		snake[0] += moving_vector[0];
 		snake[0] %= 58 + 1;
 		if (snake[0] < 0) snake[0] = 58 + snake[0];
@@ -102,7 +169,41 @@ int main()
 		snake[1] %= 18 + 1;
 
 
+		switch (keyPress())
+			{
+			case 1:
+				if (moving_vector[1] != 1)
+				{
+					moving_vector[0] = 0;
+					moving_vector[1] = -1;
 
+				}
+				break;
+			case 2:
+				if (moving_vector[0] != -1)
+				{
+					moving_vector[0] = 1;
+					moving_vector[1] = 0;
+				}
+				break;
+			case 3:
+				if (moving_vector[1] != -1)
+				{
+					moving_vector[0] = 0;
+					moving_vector[1] = 1;
+				}
+				break;
+			case 4:
+				if (moving_vector[0] != 1)
+				{
+					moving_vector[0] = -1;
+					moving_vector[1] = -0;
+				}
+				break;
+
+			default:
+				break;
+			}
 
 
 
@@ -135,7 +236,7 @@ int main()
 			{
 				if (x == snake[0] && y == snake[1] && x != 0 && x != 59 && y != 0 && y != 19)
 				{
-					screen[x][y] = '*';
+					screen[x][y] = 'D';
 				}
 				if (x == food[0] && y == food[1] && x != 0 && x != 59 && y != 0 && y != 19)
 				{
@@ -145,45 +246,7 @@ int main()
 			}
 		}
 		//=======================
-		if (_kbhit())
-		{
-			int  a = _getch();
-			switch (a)
-			{
-			case 119:
-				if (moving_vector[1] != 1)
-				{
-					moving_vector[0] = 0;
-					moving_vector[1] = -1;
-
-				}
-				break;
-			case 100:
-				if (moving_vector[0] != -1)
-				{
-					moving_vector[0] = 1;
-					moving_vector[1] = 0;
-				}
-				break;
-			case 115:
-				if (moving_vector[1] != -1)
-				{
-					moving_vector[0] = 0;
-					moving_vector[1] = 1;
-				}
-				break;
-			case 97:
-				if (moving_vector[0] != 1)
-				{
-					moving_vector[0] = -1;
-					moving_vector[1] = -0;
-				}
-				break;
-
-			default:
-				break;
-			}
-		}
+			
 		draw(screen, height, width);
 		Sleep(500);
 	}

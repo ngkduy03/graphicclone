@@ -1,4 +1,6 @@
 #pragma once
+#include <math.h>
+using namespace std;
 class Vector
 {
 private:
@@ -9,9 +11,9 @@ public:
 	int GetX();
 	int GetY();
 	void SetPos(int x, int y);
-	int add(Vector vector);
-	int minus(Vector vector);
-	int multiply(int k);
+	void add(Vector vector);
+	void minus(Vector vector);
+	void multiply(int k);
 	int divide(int k);
 	void Normalize();
 	double length();
