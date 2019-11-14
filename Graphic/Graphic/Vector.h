@@ -8,6 +8,7 @@ private:
 	int y;
 public:
 	Vector(int x, int y);
+	Vector();
 	int GetX();
 	int GetY();
 	void SetPos(int x, int y);
