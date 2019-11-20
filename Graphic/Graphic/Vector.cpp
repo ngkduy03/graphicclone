@@ -1,67 +1,148 @@
 #include "Vector.h"
 
-Vector::Vector(int x, int y)
+
+
+//========================Vector 2d===============================
+Vector2D::Vector2D(int x, int y)
 {
 	this->x = x;
 	this->y = y;
 }
 
-int Vector::GetX()
+Vector2D::Vector2D()
 {
-	return this->x;
+	this->x = 0;
+	this->y = 0;
 }
 
-int Vector::GetY()
+Vector2D Vector2D::operator+(const Vector2D& right)
 {
-	return this->y;
+
+	return Vector2D(this->x+right.x,this->y+right.y);
 }
 
-void Vector::SetPos(int x, int y)
+Vector2D Vector2D::operator+=(const Vector2D& right)
 {
-	this->x = x;
-	this->y = y;
+	this->x += right.x;
+	this->y += right.y;
+	return *this;
+}
+Vector2D Vector2D::operator-(const Vector2D& right)
+{
+
+	return Vector2D(this->x - right.x, this->y - right.y);
 }
 
-void Vector::add(Vector Vec)
+Vector2D Vector2D::operator-=(const Vector2D& right)
 {
-	this->x += Vec.GetX();
-	this->y += Vec.GetY();
+	this->x -= right.x;
+	this->y -= right.y;
+	return *this;
 }
 
-void Vector::minus(Vector Vec)
+
+Vector2D Vector2D::operator*(const int& right)
 {
-	this->x -= Vec.GetX();
-	this->y -= Vec.GetY();
+	return Vector2D(this->x * right,this->y * right);
 }
 
-void Vector::multiply(int k)
+bool Vector2D::operator==(const Vector2D& right)
 {
-	this->x *= k;
-	this->y *= k;
+	return (this->x == right.x) && (this->y == right.y);
 }
 
-void Vector::Normalize()
+int Vector2D::Dot(const Vector2D& right)
 {
-	this->x /= this->length();
-	this->y /= this->length();
+	return this->x*right.x+this->y*right.y;
 }
-int Vector::divide(int k)
+
+Vector2D Vector2D::operator/(const int& right)
 {
-	if (k != 0)
+	if (right == 0)
 	{
-		this->x /= k;
-		this->y /= k;
-		return 1;
+		return *this;
 	}
 	else
 	{
-		return 0;
+		return Vector2D(this->x / right, this->y / right);
 	}
 }
 
-double Vector::length()
+//========================Vector 3d===============================
+
+Vector3D::Vector3D(int x, int y,int z)
 {
-	double length = this->x * this->x + this->y*this->y;
-	length = sqrt(length);
-	return length;
+	this->x = x;
+	this->y = y;
+	this->z = z;
+}
+
+Vector3D::Vector3D()
+{
+	this->x = 0;
+	this->y = 0;
+	this->z = 0;
+}
+
+Vector3D Vector3D::operator+(const Vector3D& right)
+{
+
+	return Vector3D(this->x + right.x, this->y + right.y,this->z+right.z);
+}
+
+Vector3D Vector3D::operator+=(const Vector3D& right)
+{
+	this->x += right.x;
+	this->y += right.y;
+	this->z += right.z;
+	return *this;
+}
+Vector3D Vector3D::operator-(const Vector3D& right)
+{
+
+	return Vector3D(this->x - right.x, this->y - right.y, this->z - right.z);
+}
+
+Vector3D Vector3D::operator-=(const Vector3D& right)
+{
+	this->x -= right.x;
+	this->y -= right.y;
+	this->z -= right.z;
+	return *this;
+}
+
+bool Vector3D::operator==(const Vector3D& right)
+{
+	return (this->x==right.x) && (this->y==right.y) && (this->z == right.z);
+}
+
+
+Vector3D Vector3D::operator*(const int& right)
+{
+	return Vector3D(this->x * right, this->y * right,this->z*right);
+}
+
+Vector3D Vector3D::operator*(const Vector3D& right)
+{
+	int x = this->y * right.z - right.y * this->z;
+	int y = this->z * right.x - right.z * this->x;
+	int z = this->x * right.y - this->y * right.x;
+	return Vector3D(x,y,z);
+}
+
+Vector3D Vector3D::operator/(const int& right)
+{
+	if (right == 0)
+	{
+		return *this;
+	}
+	else
+	{
+		return Vector3D(this->x / right, this->y / right,this->z/right);
+	}
+}
+
+int Vector3D::Dot(const Vector3D& right)
+{
+	return this->x * right.x + this->y * right.y+this->z*right.z;
 }
